@@ -14,9 +14,20 @@
 }
 
 .footer a:hover {
-    color: #1a202c;
+    color: #3f7fff;
 }
 
+.my-heading {
+   text-align: center;
+}
+
+.primary-color {
+    color: blue;
+}
+
+.secondary-color {
+    color: green;
+}
 
 .footer-icon {
     color: #dc2626;

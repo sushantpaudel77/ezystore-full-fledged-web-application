@@ -1,5 +1,6 @@
 import products from "../data/products";
 import EzyButton from "../EzyButton";
+import { BootstrapButton } from "./BootstrapButton";
 import PageHeading from "./PageHeading";
 import ProductListings from "./ProductListings";
 import styled from "styled-components";
@@ -7,8 +8,15 @@ import styled from "styled-components";
 export default function Home() {
   return (
     <>
-      <EzyButton>Home</EzyButton>
+      {/* <EzyButton>Home</EzyButton> */}
       <div className="home-container">
+        <div className="container">
+          <BootstrapButton text="Submit" type="primary" />
+          <BootstrapButton text="Save" type="secondary" />
+          <BootstrapButton text="Okay" type="success" />
+          <BootstrapButton text="Cancel" type="danger" />
+        </div>
+
         <PageHeading title="Explore Eazy Stickers!">
           Add a touch of creativity to your space with our wide range of fun and
           unique stickers. Perfect for any occasion!

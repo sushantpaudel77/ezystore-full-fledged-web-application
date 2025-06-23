@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faTags } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import "./footer.css";
 
-export function Footer() {
+export default function Footer() {
   return (
     <footer className="footer">
-      Build with{" "}
+      Buit with
       <FontAwesomeIcon
         icon={faHeart}
         className="footer-icon"

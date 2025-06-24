@@ -1,6 +1,7 @@
 package com.ezystore.ezystore.service;
 
 import com.ezystore.ezystore.dto.ProductDto;
+import com.ezystore.ezystore.entity.Product;
 import com.ezystore.ezystore.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> getProducts() {
-        return List.of();
+        return productRepository.findAll()
+                .stream()
+                .map(this::transformToDto).toList();
+    }
+
+    private ProductDto transformToDto(Product product) {
+        ProductDto dto = new ProductDto();
+        dto.setId(product.getId());
+        dto.setName(product.getName());
+        dto.setDescription(product.getDescription());
+        dto.setPrice(product.getPrice());
+        dto.setPopularity(product.getPopularity());
+        dto.setImageUrl(product.getImageUrl());
+        return dto;
     }
 }

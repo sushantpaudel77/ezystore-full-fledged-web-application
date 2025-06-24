@@ -1,16 +1,13 @@
 import products from "../data/products";
 import PageHeading from "./PageHeading";
 import ProductListings from "./ProductListings";
-import styled from "styled-components";
 
 export default function Home() {
   return (
     <>
-      {/* <EzyButton>Home</EzyButton> */}
-      <div className="home-container">
-
+      <div className="max-w-[1152px] mx-auto px-6 py-8">
         <PageHeading title="Explore Eazy Stickers!">
-          Add a touch of creativity to your space with our wide range of fun and
+          Add a touch of creativity to your space with our wide range of fun and <br />
           unique stickers. Perfect for any occasion!
         </PageHeading>
         <ProductListings products={products} />

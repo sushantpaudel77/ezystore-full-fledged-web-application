@@ -11,7 +11,7 @@ INSERT INTO products (name, description, price, popularity, image_url, created_a
 VALUES ('Devster', 'They exist!', 5.00, 72, '/stickers/EatSleepCode.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
 
 INSERT INTO products (name, description, price, popularity, image_url, created_at, created_by, updated_at, updated_by)
-VALUES ('CodeSmasher', 'Fearless developer!', 7.50, 88, '/stickers/BreakingCode.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
+VALUES ('CodeSmasher', 'Fearless developer!', 5.50, 66, '/stickers/BreakingCode.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
 
 INSERT INTO products (name, description, price, popularity, image_url, created_at, created_by, updated_at, updated_by)
 VALUES ('CodeMate', 'Without you, I''m incomplete!', 2.00, 79, '/stickers/youaremycss.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
@@ -35,7 +35,7 @@ INSERT INTO products (name, description, price, popularity, image_url, created_a
 VALUES ('Squid Game', 'Let''s play', 5.00, 70, '/stickers/SquidGame.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
 
 INSERT INTO products (name, description, price, popularity, image_url, created_at, created_by, updated_at, updated_by)
-VALUES ('Shin-Chan', 'Mischievous!', 4.00, 55, '/stickers/Shinchan.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
+VALUES ('Shin-Chan', 'Mischievous!', 7.00, 80, '/stickers/Shinchan.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
 
 INSERT INTO products (name, description, price, popularity, image_url, created_at, created_by, updated_at, updated_by)
 VALUES ('Game over', 'Game over!', 5.00, 50, '/stickers/GameOver.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);

@@ -6,8 +6,7 @@ import {
   faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, NavLink } from "react-router-dom";
 
 export default function Header() {
   const [theme, setTheme] = useState(() => {
@@ -57,24 +56,44 @@ export default function Header() {
           </button>
           <ul className="flex space-x-6">
             <li>
-              <Link to="/home" className={navLinkClass}>
+              <NavLink
+                to="/home"
+                className={({ isActive }) =>
+                  isActive ? `underline ${navLinkClass}` : navLinkClass
+                }
+              >
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/about" className={navLinkClass}>
+              <NavLink
+                to="/about"
+                className={({ isActive }) =>
+                  isActive ? `underline ${navLinkClass}` : navLinkClass
+                }
+              >
                 About
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/contact" className={navLinkClass}>
+              <NavLink
+                to="/contact"
+                className={({ isActive }) =>
+                  isActive ? `underline ${navLinkClass}` : navLinkClass
+                }
+              >
                 Contact
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/login" className={navLinkClass}>
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  isActive ? `underline ${navLinkClass}` : navLinkClass
+                }
+              >
                 Login
-              </Link>
+              </NavLink>
             </li>
             <li>
               <Link to="/cart" className="text-primary py-2">

@@ -1,5 +1,5 @@
 INSERT INTO products (name, description, price, popularity, image_url, created_at, created_by, updated_at, updated_by)
-VALUES ('Developer', 'Code Wizard!', 5.00, 85, '/stickers/developer.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
+VALUES ('Developer', 'Code Wizard!', 5.00, 55, '/stickers/developer.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
 
 INSERT INTO products (name, description, price, popularity, image_url, created_at, created_by, updated_at, updated_by)
 VALUES ('Break', 'Hey, lets take a breather and start fresh on the next line', 4.50, 40, '/stickers/break.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
@@ -23,19 +23,19 @@ INSERT INTO products (name, description, price, popularity, image_url, created_a
 VALUES ('AstroChill', 'Cool for gravity!', 3.00, 52, '/stickers/CoolAstraunaut.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
 
 INSERT INTO products (name, description, price, popularity, image_url, created_at, created_by, updated_at, updated_by)
-VALUES ('Ronaldo', 'Legendary!', 8.00, 100, '/stickers/ronaldo.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
+VALUES ('Ronaldo', 'Legendary!', 10.00, 100, '/stickers/ronaldo.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
 
 INSERT INTO products (name, description, price, popularity, image_url, created_at, created_by, updated_at, updated_by)
 VALUES ('My Driving Scares Me Too', 'They exist!', 5.00, 65, '/stickers/MyDrivingScaresMeToo.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
 
 INSERT INTO products (name, description, price, popularity, image_url, created_at, created_by, updated_at, updated_by)
-VALUES ('Three headed dragon symbol', 'Targaryen dynasty strength', 9.00, 98, '/stickers/HouseOfTheDragonSymbol.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
+VALUES ('Three headed dragon symbol', 'Targaryen dynasty strength', 6.00, 40, '/stickers/HouseOfTheDragonSymbol.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
 
 INSERT INTO products (name, description, price, popularity, image_url, created_at, created_by, updated_at, updated_by)
 VALUES ('Squid Game', 'Let''s play', 5.00, 70, '/stickers/SquidGame.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
 
 INSERT INTO products (name, description, price, popularity, image_url, created_at, created_by, updated_at, updated_by)
-VALUES ('Shin-Chan', 'Mischievous!', 5.00, 70, '/stickers/Shinchan.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
+VALUES ('Shin-Chan', 'Mischievous!', 4.00, 55, '/stickers/Shinchan.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);
 
 INSERT INTO products (name, description, price, popularity, image_url, created_at, created_by, updated_at, updated_by)
 VALUES ('Game over', 'Game over!', 5.00, 50, '/stickers/GameOver.png', CURRENT_TIMESTAMP, 'admin', NULL, NULL);

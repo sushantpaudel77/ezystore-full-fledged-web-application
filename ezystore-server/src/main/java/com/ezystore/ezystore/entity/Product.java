@@ -3,7 +3,6 @@ package com.ezystore.ezystore.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -33,18 +32,26 @@ public class Product {
     @Column(name = "IMAGE_URL", length = 500)
     private String imageUrl;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "CREATED_AT", nullable = false)
+    @Column(name = "CREATED_AT", nullable = false, updatable = false)
     private Instant createdAt;
 
     @Column(name = "CREATED_BY", nullable = false, length = 20)
     private String createdBy;
 
-    @ColumnDefault("NULL")
     @Column(name = "UPDATED_AT")
     private Instant updatedAt;
 
-    @ColumnDefault("NULL")
     @Column(name = "UPDATED_BY", length = 20)
     private String updatedBy;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = Instant.now();
+    }
 }

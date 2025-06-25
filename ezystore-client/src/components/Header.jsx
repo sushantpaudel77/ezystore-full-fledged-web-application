@@ -10,7 +10,7 @@ import { Link, NavLink } from "react-router-dom";
 
 export default function Header() {
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem("theme") === "dark" ? "dark" : "light";
+    return localStorage.getItem("theme") || "dark";
   });
 
   useEffect(() => {
@@ -19,88 +19,50 @@ export default function Header() {
     } else {
       document.documentElement.classList.remove("dark");
     }
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toogleTheme = () => {
-    setTheme((prevTheme) => {
-      const newTheme = prevTheme === "light" ? "dark" : "light";
-      if (newTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-      localStorage.setItem("theme", newTheme);
-      return newTheme;
-    });
+  const toggleTheme = () => {
+    setTheme(prev => (prev === "dark" ? "light" : "dark"));
   };
 
   const navLinkClass =
-    "text-center text-lg font-primary font-semibold text-primary py-2 dark:text-light hover:text-dark dark:hover:text-lighter";
+    "text-center text-lg font-primary font-semibold text-primary dark:text-lighter py-2 hover:text-dark dark:hover:text-light";
+
   return (
-    <header className="border-b border-gray-300 dark:border-gray-600 sticky top-0 z-20 bg-normalbg dark:bg-darkbg">
+    <header className="border-b border-gray-300 dark:border-gray-700 sticky top-0 z-20 bg-normalbg dark:bg-darkbg shadow-sm dark:shadow-md">
       <div className="flex items-center justify-between mx-auto max-w-[1152px] px-6 py-4">
-        <Link to="/" className={navLinkClass}>
-          <FontAwesomeIcon icon={faTags} className="h-8 w-8" />
-          <span className="font-bold">Ezy Stickers</span>
+        <Link to="/" className={`${navLinkClass} flex items-center gap-2`}>
+          <FontAwesomeIcon icon={faTags} className="h-6 w-6" />
+          <span className="text-xl font-bold">Ezy Stickers</span>
         </Link>
-        <nav className="flex items-center py-2 z-10">
+        <nav className="flex items-center space-x-6">
           <button
-            className="flex items-center justify-center mx-3 w-8 h-8 rounded-full border border-primary dark:border-light transition duration-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-            aria-label="Toogle theme"
-            onClick={toogleTheme}
+            onClick={toggleTheme}
+            aria-label="Toggle Theme"
+            className="flex items-center justify-center w-9 h-9 rounded-full border border-primary dark:border-light transition hover:bg-gray-300 dark:hover:bg-gray-700"
           >
             <FontAwesomeIcon
               icon={theme === "dark" ? faMoon : faSun}
-              className="w-4 h-4 dark:text-light text-primary"
+              className="w-4 h-4 text-primary dark:text-lighter"
             />
           </button>
-          <ul className="flex space-x-6">
+          <ul className="flex items-center space-x-6">
+            {["home", "about", "contact", "login"].map((path) => (
+              <li key={path}>
+                <NavLink
+                  to={`/${path}`}
+                  className={({ isActive }) =>
+                    isActive ? `underline ${navLinkClass}` : navLinkClass
+                  }
+                >
+                  {path.charAt(0).toUpperCase() + path.slice(1)}
+                </NavLink>
+              </li>
+            ))}
             <li>
-              <NavLink
-                to="/home"
-                className={({ isActive }) =>
-                  isActive ? `underline ${navLinkClass}` : navLinkClass
-                }
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/about"
-                className={({ isActive }) =>
-                  isActive ? `underline ${navLinkClass}` : navLinkClass
-                }
-              >
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/contact"
-                className={({ isActive }) =>
-                  isActive ? `underline ${navLinkClass}` : navLinkClass
-                }
-              >
-                Contact
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  isActive ? `underline ${navLinkClass}` : navLinkClass
-                }
-              >
-                Login
-              </NavLink>
-            </li>
-            <li>
-              <Link to="/cart" className="text-primary py-2">
-                <FontAwesomeIcon
-                  icon={faShoppingBasket}
-                  className="dark:text-light"
-                />
+              <Link to="/cart" className="text-primary dark:text-lighter py-2">
+                <FontAwesomeIcon icon={faShoppingBasket} />
               </Link>
             </li>
           </ul>
@@ -109,5 +71,3 @@ export default function Header() {
     </header>
   );
 }
-
-// export default Header;

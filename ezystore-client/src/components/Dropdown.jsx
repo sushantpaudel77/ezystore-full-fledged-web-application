@@ -6,14 +6,14 @@ const Dropdown = ({ label, options, selectedValue }) => {
       <label className="text-lg font-semibold text-primary">{label}</label>
       <select
         className="px-3 py-2 text-base border rounded-md transition
-       border-primary focus:ring focus:ring-dark focus:outline-none text-gray-100"
+        border-primary focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800"
         value={selectedValue}
       >
-        {options.map((optionVal, index) => {
+        {options.map((optionVal, index) => (
           <option key={index} value={optionVal}>
             {optionVal}
-          </option>;
-        })}
+          </option>
+        ))}
       </select>
     </div>
   );

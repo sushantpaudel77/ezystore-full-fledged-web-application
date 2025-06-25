@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
 
     private ProductDto transformToDto(Product product) {
         ProductDto dto = new ProductDto();
-        dto.setId(product.getId());
+        dto.setProductId(product.getId());
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
         dto.setPrice(product.getPrice());

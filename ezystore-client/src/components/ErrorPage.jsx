@@ -27,7 +27,7 @@ export default function ErrorPage() {
 
           <Link
             to="/home"
-className="inline-block py-3.5 px-8 text-white/90 text-xl font-semibold rounded-lg bg-gradient-to-r from-primary to-primary-dark dark:from-light dark:to-primary shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+            className="inline-block py-3.5 px-8 text-white/90 text-xl font-semibold rounded-lg bg-primary dark:bg-gradient-to-r dark:from-light dark:to-primary shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
           >
             Back to Home
           </Link>

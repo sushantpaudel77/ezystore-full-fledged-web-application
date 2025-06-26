@@ -7,31 +7,30 @@ import { Link, useRouteError } from "react-router-dom";
 
 export default function ErrorPage() {
   const routeError = useRouteError();
+
   return (
-    <div className="flex flex-col min-h-[980px]">
+    <div className="flex flex-col min-h-[980px] bg-[--color-normalbg] dark:bg-[--color-darkbg] font-primary">
       <Header />
-      {/* Main Content */}
-      <main className="flex-grow">
-        <div className="py-12 bg-normalbg dark:bg-darkbg font-primary">
-          <div className="max-w-4xl mx-auto px-4">
-            <PageTitle title={routeError.status} />
-          </div>
-          <div className="text-center text-gray-600 dark:text-lighter flex flex-col items-center">
-            <p className="max-w-[576px] px-2 mx-auto leading-6 mb-4">
-              {routeError.data}
-            </p>
-            <img
-              src={errorImage}
-              alt="Error"
-              className="w-full max-w-[576px] mx-auto mb-6"
-            />
-            <Link
-              to="/home"
-              className="py-3 px-6 text-white dark:text-black text-xl rounded-md transition duration-200 bg-primary dark:bg-light hover:bg-dark dark:hover:bg-lighter font-semibold"
-            >
-              Back to Home
-            </Link>
-          </div>
+      <main className="flex-grow py-12">
+        <div className="max-w-4xl mx-auto px-4 text-center text-gray-700 dark:text-lighter">
+          <PageTitle title={`Error ${routeError?.status || "Unknown"}`} />
+
+          <p className="max-w-[576px] mx-auto px-2 mb-6 leading-7">
+            {routeError?.data || "Sorry, something went wrong."}
+          </p>
+
+          <img
+            src={errorImage}
+            alt="Error Illustration"
+            className="w-full max-w-[576px] mx-auto mb-8"
+          />
+
+          <Link
+            to="/home"
+className="inline-block py-3.5 px-8 text-white/90 text-xl font-semibold rounded-lg bg-gradient-to-r from-primary to-primary-dark dark:from-light dark:to-primary shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+          >
+            Back to Home
+          </Link>
         </div>
       </main>
       <Footer />

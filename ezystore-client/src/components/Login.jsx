@@ -7,14 +7,14 @@ export default function Login() {
   const labelStyle =
     "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
   const inputWrapperStyle =
-    "relative flex items-center bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-4 hover:border-primary dark:hover:border-light focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary transition-all";
+    "relative flex items-center bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-4 hover:border-gray-400 dark:hover:border-gray-500 focus-within:border-gray-400 dark:focus-within:border-gray-500 transition-all";
   const iconStyle = "text-gray-400 dark:text-gray-500 absolute left-3 text-lg";
   const textFieldStyle =
     "w-full pl-10 py-3 text-sm bg-transparent focus:outline-none text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500";
 
   return (
     <div className="min-h-screen flex items-center justify-center font-primary bg-gradient-to-br from-[--color-normalbg] to-gray-100 dark:from-[--color-darkbg] dark:to-gray-900 px-4 transition-colors">
-      <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-3xl max-w-lg w-full px-10 py-14 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all mt-[-90px]">
+      <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-3xl max-w-xl w-full px-12 py-16 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all mt-[-90px]">
         <PageTitle title="Welcome back" subtitle="Login to your account" />
 
         {/* Form */}

@@ -1,34 +1,48 @@
 import React from "react";
 import PageTitle from "./PageTitle";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import emptyCartImage from "../assets/util/emptycart.png";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function Cart() {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    navigation("/home", { state: { username: "sushant" } });
+    navigate("/home", { state: { username: "sushant" } });
   };
 
   return (
-    <div className="min-h-[852px] py-12 bg-normalbg dark:bg-darkbg font-primary">
+    <div className="min-h-[852px] py-12 bg-[--color-normalbg] dark:bg-[--color-darkbg] font-primary">
       <div className="max-w-4xl mx-auto px-4">
+        {/* Title */}
         <PageTitle title="Your Cart" />
-        <div className="text-center text-gray-600 dark:text-lighter flex flex-col items-center">
-          <p className="max-w-[576px] px-2 mx-auto text-base mb-4">
-            Oops... Your cart is empty. Continue shopping
-          </p>
+
+        {/* Empty Cart Message */}
+        <div className="mt-10 text-center flex flex-col items-center justify-center">
           <img
             src={emptyCartImage}
             alt="Empty Cart"
-            className="max-w-[300px] mx-auto mb-6 dark:bg-light dark:rounded-md"
+            className="max-w-[280px] mb-6 dark:bg-light rounded-md"
           />
+          <p className="max-w-[576px] text-base text-gray-600 dark:text-lighter mb-6">
+            Oops... Your cart is currently empty. Looks like you haven’t added
+            anything yet.
+          </p>
+
+          {/* CTA Button */}
           <button
             onClick={handleClick}
-            className="py-2 px-4 bg-primary dark:bg-light text-white dark:text-black text-xl font-semibold rounded-sm flex justify-center items-center hover:bg-dark dark:hover:bg-lighter transition"
+className="
+  flex items-center gap-2 px-6 py-3.5
+  text-white/90 text-lg font-semibold rounded-lg
+  bg-primary
+  dark:bg-gradient-to-r dark:from-light dark:to-primary
+  shadow-md hover:shadow-lg transition-all duration-300
+  hover:scale-[1.02] active:scale-[0.98]
+  disabled:opacity-70 disabled:cursor-not-allowed
+"
           >
-            Back to Products
+            <FaArrowLeft /> Back to Products
           </button>
         </div>
       </div>

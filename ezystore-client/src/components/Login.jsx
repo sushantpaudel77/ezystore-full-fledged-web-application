@@ -1,70 +1,100 @@
 import React from "react";
 import PageTitle from "./PageTitle";
 import { Link } from "react-router-dom";
+import { FaUser, FaLock, FaArrowRight } from "react-icons/fa";
 
 export default function Login() {
   const labelStyle =
-    "block text-lg font-semibold text-primary dark:text-light mb-2";
+    "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
+  const inputWrapperStyle =
+    "relative flex items-center bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-4 hover:border-primary dark:hover:border-light focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary transition-all";
+  const iconStyle = "text-gray-400 dark:text-gray-500 absolute left-3 text-lg";
   const textFieldStyle =
-    "w-full px-4 py-2 text-base border rounded-md transition border-primary dark:border-light focus:ring focus:ring-dark dark:focus:ring-lighter focus:outline-none text-gray-800 dark:text-lighter bg-white dark:bg-gray-600 placeholder-gray-400 dark:placeholder-gray-300";
+    "w-full pl-10 py-3 text-sm bg-transparent focus:outline-none text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500";
+
   return (
-    <div className="min-h-[852px] flex items-center justify-center font-primary dark:bg-darkbg">
-      <div className="bg-white dark:bg-gray-700 shadow-md rounded-lg max-w-md w-full px-8 py-6">
-        {/* Title */}
-        <PageTitle title="Login" />
+    <div className="min-h-screen flex items-center justify-center font-primary bg-gradient-to-br from-[--color-normalbg] to-gray-100 dark:from-[--color-darkbg] dark:to-gray-900 px-4 transition-colors">
+      <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-3xl max-w-lg w-full px-10 py-14 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all mt-[-90px]">
+        <PageTitle title="Welcome back" subtitle="Login to your account" />
+
         {/* Form */}
-        <form className="space-y-6">
-          {/* Email Field */}
+        <form className="space-y-6 mt-10">
+          {/* Username Field */}
           <div>
             <label htmlFor="username" className={labelStyle}>
-              Username
+              Username or Email
             </label>
-            <input
-              id="username"
-              type="text"
-              name="username"
-              placeholder="Your Username"
-              required
-              className={textFieldStyle}
-            />
+            <div className={inputWrapperStyle}>
+              <FaUser className={iconStyle} />
+              <input
+                id="username"
+                type="text"
+                name="username"
+                placeholder="username@example.com"
+                required
+                className={textFieldStyle}
+              />
+            </div>
           </div>
 
           {/* Password Field */}
           <div>
-            <label htmlFor="password" className={labelStyle}>
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              name="password"
-              placeholder="Your Password"
-              required
-              minLength={8}
-              maxLength={20}
-              className={textFieldStyle}
-            />
+            <div className="flex justify-between items-center">
+              <label htmlFor="password" className={labelStyle}>
+                Password
+              </label>
+              <Link
+                to="/forgot-password"
+                className="text-xs text-primary dark:text-light hover:underline"
+              >
+                Forgot password?
+              </Link>
+            </div>
+            <div className={inputWrapperStyle}>
+              <FaLock className={iconStyle} />
+              <input
+                id="password"
+                type="password"
+                name="password"
+                placeholder="••••••••"
+                required
+                minLength={8}
+                maxLength={20}
+                className={textFieldStyle}
+              />
+            </div>
           </div>
 
-          {/* Submit Button */}
-          <div>
+          {/* Remember Me & Submit */}
+          <div className="flex items-center justify-between">
+            <label className="flex items-center space-x-2 text-sm text-gray-700 dark:text-gray-300">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-700"
+              />
+              <span>Remember me</span>
+            </label>
+
             <button
               type="submit"
-              className="w-full px-6 py-2 text-white dark:text-black text-xl rounded-md transition duration-200 bg-primary dark:bg-light hover:bg-dark dark:hover:bg-lighter"
+              className="group flex items-center gap-2 px-6 py-3 text-white text-sm font-medium rounded-lg bg-primary hover:bg-primary/90 dark:bg-gradient-to-r dark:from-light dark:to-primary dark:hover:from-primary dark:hover:to-light transition-all"
             >
-              Login
+              Sign in
+              <FaArrowRight className="transition-transform group-hover:translate-x-1" />
             </button>
           </div>
         </form>
 
         {/* Register Link */}
-        <p className="text-center text-gray-600 dark:text-gray-400 mt-4">
-          Don't have an account?{" "}
+        <p className="text-center mt-10 text-sm text-gray-500 dark:text-gray-400">
+          Don&apos;t have an account?{" "}
           <Link
             to="/register"
-            className="text-primary dark:text-light hover:text-dark dark:hover:text-primary transition duration-200"
+            className="font-medium text-primary dark:text-light hover:text-dark dark:hover:text-primary transition-colors hover:underline"
           >
-            Register Here
+            Sign up
           </Link>
         </p>
       </div>

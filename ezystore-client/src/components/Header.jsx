@@ -8,24 +8,7 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
-
-// For demo purposes, using regular anchor tags
-const Link = ({ to, children, className, ...props }) => (
-  <a href={to} className={className} {...props}>
-    {children}
-  </a>
-);
-const NavLink = ({ to, children, className, ...props }) => (
-  <a
-    href={to}
-    className={
-      typeof className === "function" ? className({ isActive: false }) : className
-    }
-    {...props}
-  >
-    {children}
-  </a>
-);
+import { Link, NavLink } from "react-router-dom";
 
 export default function Header() {
   const [theme, setTheme] = useState(() => {
@@ -105,16 +88,12 @@ export default function Header() {
                 to={`/${item.path}`}
                 className={({ isActive }) =>
                   `relative px-4 py-2 rounded-xl font-semibold font-primary transition-all duration-300 text-lg ${
-                    isActive
-                      ? "text-white bg-gray-700 dark:bg-gray-600 shadow-lg"
-                      : ""
+                    isActive ? "text-white bg-gray-700 dark:bg-gray-600 shadow-lg" : ""
                   }`
                 }
                 style={{
                   color:
-                    theme === "dark"
-                      ? "var(--color-lighter)"
-                      : "var(--color-dark)",
+                    theme === "dark" ? "var(--color-lighter)" : "var(--color-dark)",
                 }}
               >
                 {item.label}
@@ -186,16 +165,12 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
                 className={({ isActive }) =>
                   `block px-4 py-3 rounded-xl font-semibold font-primary transition-all duration-300 text-lg ${
-                    isActive
-                      ? "text-white bg-gray-700 dark:bg-gray-600 shadow-lg"
-                      : ""
+                    isActive ? "text-white bg-gray-700 dark:bg-gray-600 shadow-lg" : ""
                   }`
                 }
                 style={{
                   color:
-                    theme === "dark"
-                      ? "var(--color-lighter)"
-                      : "var(--color-dark)",
+                    theme === "dark" ? "var(--color-lighter)" : "var(--color-dark)",
                 }}
               >
                 {item.label}

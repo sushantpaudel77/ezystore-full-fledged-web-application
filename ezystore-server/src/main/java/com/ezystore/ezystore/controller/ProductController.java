@@ -20,7 +20,8 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<ProductDto>> getProducts() {
+    public ResponseEntity<List<ProductDto>> getProducts() throws InterruptedException {
+        Thread.sleep(400);
         log.info("fetching products from the server");
         var productsList = productService.getProducts();
         return ResponseEntity.ok(productsList);

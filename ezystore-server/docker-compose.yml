@@ -14,13 +14,19 @@ services:
       - mysql-data:/var/lib/mysql
     networks:
       - ezystore-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin-ezystore
     restart: always
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     ports:
       - "8081:80"
     environment:
@@ -35,3 +41,4 @@ volumes:
 
 networks:
   ezystore-net:
+    driver: bridge

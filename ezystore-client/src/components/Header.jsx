@@ -7,9 +7,10 @@ import {
   faBars,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { CartContext } from "../store/cart-context";
+import { useCart } from "../store/cart-context";
+
 
 export default function Header() {
   const [theme, setTheme] = useState(() => {
@@ -18,7 +19,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const { totalQuantity } = useContext(CartContext);
+  const { totalQuantity } = useCart();
 
   useEffect(() => {
     if (theme === "dark") {

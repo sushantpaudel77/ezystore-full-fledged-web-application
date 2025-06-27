@@ -18,7 +18,8 @@ import { productsLoader } from "./components/Home.jsx";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProductDetail from "./components/ProductDetail.jsx";
-import CartProvider from "./store/cart-context.jsx";
+import { CartProvider } from "./store/cart-context.jsx";
+
 
 const routeDefinitions = createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>

@@ -6,6 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useRef, useEffect } from "react";
+import { useCart } from "../store/cart-context";
 
 export default function ProductDetail() {
   const location = useLocation();
@@ -15,6 +16,7 @@ export default function ProductDetail() {
   const zoomRef = useRef(null);
   const [isHovering, setIsHovering] = useState(false);
   const [backgroundPosition, setBackgroundPosition] = useState("center");
+  const {addToCart} = useCart;
 
   // Detect dark mode from document element
   const [isDark, setIsDark] = useState(false);

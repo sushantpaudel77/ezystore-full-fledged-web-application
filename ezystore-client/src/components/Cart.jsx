@@ -24,10 +24,10 @@ export default function Cart() {
               <Link
                 to="/"
                 className="relative z-0 py-2 px-6 rounded-lg text-white text-xl font-semibold flex justify-center items-center 
-      bg-gradient-to-r from-primary to-primary-dark 
-      dark:from-light dark:to-primary 
-      hover:from-primary-dark hover:to-primary 
-      dark:hover:from-primary dark:hover:to-light 
+      bg-[linear-gradient(to_right,var(--color-primary),var(--color-dark))] 
+      dark:bg-[linear-gradient(to_right,var(--color-light),var(--color-primary))] 
+      hover:bg-[linear-gradient(to_right,var(--color-dark),var(--color-primary))] 
+      dark:hover:bg-[linear-gradient(to_right,var(--color-primary),var(--color-light))] 
       transition-all duration-500 ease-in-out hover:scale-[1.02] active:scale-[0.98] shadow-md"
               >
                 Back to Products
@@ -36,10 +36,10 @@ export default function Cart() {
               {/* Proceed to Checkout Button */}
               <button
                 className="relative z-0 py-2 px-6 rounded-lg text-white text-xl font-semibold flex justify-center items-center 
-      bg-gradient-to-r from-primary to-primary-dark 
-      dark:from-light dark:to-primary 
-      hover:from-primary-dark hover:to-primary 
-      dark:hover:from-primary dark:hover:to-light 
+      bg-[linear-gradient(to_right,var(--color-primary),var(--color-dark))] 
+      dark:bg-[linear-gradient(to_right,var(--color-light),var(--color-primary))] 
+      hover:bg-[linear-gradient(to_right,var(--color-dark),var(--color-primary))] 
+      dark:hover:bg-[linear-gradient(to_right,var(--color-primary),var(--color-light))] 
       transition-all duration-500 ease-in-out hover:scale-[1.02] active:scale-[0.98] shadow-md"
               >
                 Proceed to Checkout

@@ -38,7 +38,7 @@ export default function ProductDetail() {
   const handleViewCart = () => navigate("/cart");
 
   return (
-    <div className="min-h-screen flex items-start justify-center px-4 pt-24 pb-8 font-primary bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900 transition-all duration-500">
+    <div className="min-h-screen flex items-start justify-center px-4 pt-40 pb-8 font-primary bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900 transition-all duration-500">
       <div className="max-w-6xl w-full mx-auto">
         <div className="bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/50 overflow-hidden">
           <div className="flex flex-col lg:flex-row">

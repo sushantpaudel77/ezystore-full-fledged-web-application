@@ -12,7 +12,7 @@ export default function Cart() {
   };
 
   return (
-    <div className="min-h-[852px] py-12 bg-[--color-normalbg] dark:bg-[--color-darkbg] font-primary">
+    <div className="min-h-[852px] py-27 bg-[--color-normalbg] dark:bg-[--color-darkbg] font-primary">
       <div className="max-w-4xl mx-auto px-4">
         {/* Title */}
         <PageTitle title="Your Cart" />
@@ -32,15 +32,7 @@ export default function Cart() {
           {/* CTA Button */}
           <button
             onClick={handleClick}
-className="
-  flex items-center gap-2 px-6 py-3.5
-  text-white/90 text-lg font-semibold rounded-lg
-  bg-primary
-  dark:bg-gradient-to-r dark:from-light dark:to-primary
-  shadow-md hover:shadow-lg transition-all duration-300
-  hover:scale-[1.02] active:scale-[0.98]
-  disabled:opacity-70 disabled:cursor-not-allowed
-"
+            className="flex items-center gap-2 px-6 py-3.5 text-white/90 text-lg font-semibold rounded-lg bg-primary  dark:bg-gradient-to-r dark:from-light dark:to-primary shadow-md hover:shadow-lg transition-all duration-300  hover:scale-[1.02] active:scale-[0.98]  disabled:opacity-70 disabled:cursor-not-allowed"
           >
             <FaArrowLeft /> Back to Products
           </button>

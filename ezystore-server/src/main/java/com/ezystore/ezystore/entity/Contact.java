@@ -10,7 +10,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Table(name = "contacts")
-public class Contact {
+public class Contact extends BaseEntity{
 
     @Id
     @Column(name = "contact_id", nullable = false)
@@ -28,27 +28,4 @@ public class Contact {
 
     @Column(name = "message", nullable = false, length = 500)
     private String message;
-
-    @Column(name = "CREATED_AT", nullable = false, updatable = false)
-    private Instant createdAt;
-
-    @Column(name = "CREATED_BY", nullable = false, length = 20)
-    private String createdBy;
-
-    @Column(name = "UPDATED_AT")
-    private Instant updatedAt;
-
-    @Column(name = "UPDATED_BY", length = 20)
-    private String updatedBy;
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = Instant.now();
-        this.updatedAt = Instant.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = Instant.now();
-    }
 }

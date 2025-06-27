@@ -5,13 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "products")
-public class Product {
+public class Product extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PRODUCT_ID", nullable = false)
@@ -31,27 +30,4 @@ public class Product {
 
     @Column(name = "IMAGE_URL", length = 500)
     private String imageUrl;
-
-    @Column(name = "CREATED_AT", nullable = false, updatable = false)
-    private Instant createdAt;
-
-    @Column(name = "CREATED_BY", nullable = false, length = 20)
-    private String createdBy;
-
-    @Column(name = "UPDATED_AT")
-    private Instant updatedAt;
-
-    @Column(name = "UPDATED_BY", length = 20)
-    private String updatedBy;
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = Instant.now();
-        this.updatedAt = Instant.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = Instant.now();
-    }
 }

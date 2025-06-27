@@ -37,29 +37,6 @@ export default function ProductDetail() {
 
   const handleViewCart = () => navigate("/cart");
 
-  // Button styles based on theme
-  const primaryButtonClasses = `
-    w-full flex justify-center items-center gap-3 px-8 py-4 rounded-xl font-bold text-white text-lg
-    shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]
-    transition-all duration-300 relative overflow-hidden group
-    ${
-      isDark
-        ? "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
-        : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
-    }
-  `;
-
-  const secondaryButtonClasses = `
-    w-full flex justify-center items-center gap-3 px-8 py-4 rounded-xl font-bold text-lg
-    border-2 shadow-md hover:shadow-lg transform hover:scale-[1.02] active:scale-[0.98]
-    transition-all duration-300 relative overflow-hidden group
-    ${
-      isDark
-        ? "text-indigo-300 border-indigo-400 bg-gray-800 hover:bg-gray-700"
-        : "text-indigo-700 border-indigo-300 bg-indigo-50 hover:bg-indigo-100"
-    }
-  `;
-
   return (
     <div className="min-h-screen flex items-start justify-center px-4 pt-24 pb-8 font-primary bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900 transition-all duration-500">
       <div className="max-w-6xl w-full mx-auto">
@@ -144,17 +121,18 @@ export default function ProductDetail() {
                 </div>
 
                 <div className="space-y-3">
-                  <button className={primaryButtonClasses}>
+                  {/* Add to Cart Button - Your Signature Style */}
+                  <button className="w-full flex justify-center items-center gap-3 px-8 py-4 text-white text-lg font-bold rounded-xl shadow-lg bg-primary hover:bg-primary/90 dark:bg-gradient-to-r dark:from-light dark:to-primary dark:hover:from-primary dark:hover:to-light hover:scale-105 active:scale-95 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                     <span className="relative z-10 flex items-center gap-3">
                       Add to Cart
                       <FontAwesomeIcon icon={faShoppingCart} className="group-hover:rotate-12 transition-transform duration-300" />
                     </span>
-                    <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </button>
 
+                  {/* View Cart Button - Light Colors */}
                   <button
                     onClick={handleViewCart}
-                    className={secondaryButtonClasses}
+                    className="w-full flex justify-center items-center gap-3 px-8 py-4 text-lg font-bold rounded-xl shadow-md bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 hover:scale-105 active:scale-95 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                   >
                     <span className="relative z-10 flex items-center gap-3">
                       View Cart

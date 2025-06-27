@@ -1,12 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" href="/stickers/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>EzyStore</title>
+
+    <script>
+      (function () {
+        const savedTheme = localStorage.getItem("theme");
+        const systemDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const initialTheme = savedTheme || (systemDark ? "dark" : "light");
+        const html = document.documentElement;
+
+        html.classList.toggle("dark", initialTheme === "dark");
+
+        html.style.backgroundColor =
+          initialTheme === "dark" ? "#111827" : "#ffffff";
+
+        html.dataset.theme = initialTheme;
+      })();
+    </script>
   </head>
-  <body class="bg-normalbg dark:bg-darkbg">
+
+  <body class="bg-white dark:bg-gray-900">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

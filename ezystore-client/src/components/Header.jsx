@@ -88,7 +88,9 @@ export default function Header() {
                 to={`/${item.path}`}
                 className={({ isActive }) =>
                   `relative px-4 py-2 rounded-xl font-semibold font-primary transition-all duration-300 text-lg ${
-                    isActive ? "text-white bg-gray-700 dark:bg-gray-600 shadow-lg" : ""
+                    isActive
+                      ? "text-blue-800 dark:text-gray-200"
+                      : "hover:bg-blue-100/70 dark:hover:bg-gray-700 hover:text-blue-800 dark:hover:text-gray-200"
                   }`
                 }
                 style={{
@@ -165,7 +167,9 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
                 className={({ isActive }) =>
                   `block px-4 py-3 rounded-xl font-semibold font-primary transition-all duration-300 text-lg ${
-                    isActive ? "text-white bg-gray-700 dark:bg-gray-600 shadow-lg" : ""
+                    isActive
+                      ? "text-blue-800 dark:text-gray-200"
+                      : "hover:bg-blue-100/70 dark:hover:bg-gray-700 hover:text-blue-800 dark:hover:text-gray-200"
                   }`
                 }
                 style={{

@@ -23,6 +23,11 @@ export async function productsLoader() {
     const response = await apiClient.get("/products");
     return response.data;
   } catch (error) {
-    throw new Response("Could not fetch products", { status: 500 });
+    throw new Response(
+      error.response?.data?.errorMessage ||
+        error.errormessage ||
+        "Failed to fetch products. Please try again.",
+      { status: error.status || 500 }
+    );
   }
 }

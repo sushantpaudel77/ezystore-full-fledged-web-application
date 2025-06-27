@@ -52,7 +52,6 @@ export default function Contact() {
       toastIds.current.success = toast.success(
         "Message sent successfully! We'll contact you soon.",
         {
-          // ✅ set to "top-right" to match your ToastContainer
           position: "top-right",
           theme: document.documentElement.classList.contains("dark")
             ? "dark"
@@ -178,6 +177,11 @@ export default function Contact() {
                   minLength={5}
                   maxLength={30}
                 />
+                {actionData?.errors?.name && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {actionData.errors.name}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -202,6 +206,11 @@ export default function Contact() {
                     className="block w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200"
                     required
                   />
+                  {actionData?.errors?.email && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {actionData.errors.email}
+                  </p>
+                )}
                 </div>
               </div>
 
@@ -226,6 +235,11 @@ export default function Contact() {
                     className="block w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200"
                     required
                   />
+                  {actionData?.errors?.mobileNumber && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {actionData.errors.mobileNumber}
+                  </p>
+                )}
                 </div>
               </div>
             </div>
@@ -252,6 +266,11 @@ export default function Contact() {
                   minLength={5}
                   maxLength={500}
                 />
+                {actionData?.errors?.message && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {actionData.errors.message}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -346,6 +365,13 @@ export async function contactAction({ request }) {
     await apiClient.post("/contacts", contactData);
     return { success: true };
   } catch (error) {
+    if (error.response?.status === 400) {
+      return {
+        success: false,
+        errors: error.response?.data || {},
+      };
+    }
+
     return {
       success: false,
       message:

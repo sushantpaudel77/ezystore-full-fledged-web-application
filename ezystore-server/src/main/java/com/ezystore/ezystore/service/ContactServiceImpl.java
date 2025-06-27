@@ -27,6 +27,7 @@ public class ContactServiceImpl implements ContactService {
     private Contact transformDtoToEntity(ContactRequestDto contactRequestDto) {
         Contact contact = new Contact();
         BeanUtils.copyProperties(contactRequestDto, contact);
+//        throw new RuntimeException("Oops something went wrong");
         return contact;
     }
 }

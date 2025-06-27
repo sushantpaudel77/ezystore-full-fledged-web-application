@@ -22,7 +22,6 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<List<ProductDto>> getProducts() throws InterruptedException {
         log.info("fetching products from the server");
-        log.info("Testing 5");
         var productsList = productService.getProducts();
         return ResponseEntity.ok(productsList);
     }

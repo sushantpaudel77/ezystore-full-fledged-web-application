@@ -2,6 +2,7 @@ package com.ezystore.ezystore.exception;
 
 import com.ezystore.ezystore.dto.ErrorResponseDto;
 import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +25,11 @@ public class GlobalExceptionHandler {
         log.error("Unhandled exception: {}", exception.getMessage());
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
                 webRequest.getDescription(false),
-                HttpStatus.INTERNAL_SERVER_ERROR,
+                HttpStatus.SERVICE_UNAVAILABLE,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(errorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.SERVICE_UNAVAILABLE);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -51,19 +52,5 @@ public class GlobalExceptionHandler {
         violations.forEach(v ->
                 errors.put(v.getPropertyPath().toString(), v.getMessage()));
         return ResponseEntity.badRequest().body(errors);
-    }
-
-    @ExceptionHandler(org.hibernate.exception.ConstraintViolationException.class)
-    public ResponseEntity<ErrorResponseDto> handleHibernateConstraintViolation(
-            org.hibernate.exception.ConstraintViolationException exception,
-            WebRequest webRequest) {
-        log.error("Hibernate constraint violation: {}", exception.getMessage());
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
-                webRequest.getDescription(false),
-                HttpStatus.BAD_REQUEST,
-                "Database constraint violation: " + exception.getSQLException().getMessage(),
-                LocalDateTime.now()
-        );
-        return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
     }
 }

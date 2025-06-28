@@ -1,19 +1,58 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import {
+  createContext,
+  useEffect,
+  useContext,
+  useReducer,
+} from "react";
+
 
 export const CartContext = createContext();
 
 export const useCart = () => useContext(CartContext);
 
+const ADD_TO_CART = "ADD_TO_CART";
+const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+const CLEAR_CART = "CLEAR_CART";
+
+const cartReducer = (prevCart, action) => {
+  switch (action.type) {
+    case ADD_TO_CART:
+      const { product, quantity } = action.payload;
+      const existingItem = prevCart.find(
+        (item) => item.productId === product.productId
+      );
+
+      if (existingItem) {
+        return prevCart.map((item) =>
+          item.productId === product.productId
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        );
+      }
+      return [...prevCart, { ...product, quantity }];
+    case REMOVE_FROM_CART:
+      return prevCart.filter(
+        (item) => item.productId !== action.payload.productId
+      );
+    case CLEAR_CART:
+      return [];
+    default:
+      return prevCart;
+  }
+};
+
 export const CartProvider = ({ children }) => {
-  // const [cart, setCart] = useState(() => {
-  //   try {
-  //     const storedCart = localStorage.getItem("cart");
-  //     return storedCart ? JSON.parse(storedCart) : [];
-  //   } catch (error) {
-  //     console.log("Failed to parse cart from localStorage: ", error);
-  //     return [];
-  //   }
-  });
+  const initialCartState = (() => {
+    try {
+      const storedCart = localStorage.getItem("cart");
+      return storedCart ? JSON.parse(storedCart) : [];
+    } catch (error) {
+      console.log("Failed to parse cart from localStorage:", error);
+      return [];
+    }
+  })();
+
+  const [cart, dispatch] = useReducer(cartReducer, initialCartState);
 
   useEffect(() => {
     try {
@@ -23,35 +62,23 @@ export const CartProvider = ({ children }) => {
     }
   }, [cart]);
 
-  // const addToCart = (product, quantity) => {
-  //   setCart((prevCart) => {
-  //     const existingItem = prevCart.find(
-  //       (item) => item.productId === product.productId
-  //     );
+  const addToCart = (product, quantity) => {
+    dispatch({ type: ADD_TO_CART, payload: { product, quantity } });
+  };
 
-  //     if (existingItem) {
-  //       return prevCart.map((item) =>
-  //         item.productId === product.productId
-  //           ? { ...item, quantity: item.quantity + quantity }
-  //           : item
-  //       );
-  //     }
+  const removeFromCart = (productId) => {
+    dispatch({ type: REMOVE_FROM_CART, payload: { productId } });
+  };
 
-  //     return [...prevCart, { ...product, quantity }];
-  //   });
-  // };
-
-  // const removeFromCart = (productId) => {
-  //   setCart((prevCart) =>
-  //     prevCart.filter((item) => item.productId !== productId)
-  //   );
-  // };
+  const clearCart = () => {
+    dispatch({ type: CLEAR_CART });
+  };
 
   const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <CartContext.Provider
-      value={{ cart, setCart, addToCart, removeFromCart, totalQuantity }}
+      value={{ cart, addToCart, removeFromCart, clearCart, totalQuantity }}
     >
       {children}
     </CartContext.Provider>

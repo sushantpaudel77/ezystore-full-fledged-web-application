@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping(path = "api/v1/contacts")
+@RequestMapping(path = "/api/v1/contacts")
 @RequiredArgsConstructor
 public class ContactController {
 

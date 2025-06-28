@@ -11,7 +11,7 @@ import {
 import Home from "./components/Home.jsx";
 import About from "./components/About.jsx";
 import Contact, { contactAction } from "./components/Contact.jsx";
-import Login from "./components/Login.jsx";
+import Login, { loginAction } from "./components/Login.jsx";
 import Cart from "./components/Cart.jsx";
 import ErrorPage from "./components/ErrorPage.jsx";
 import { productsLoader } from "./components/Home.jsx";
@@ -20,14 +20,13 @@ import "react-toastify/dist/ReactToastify.css";
 import ProductDetail from "./components/ProductDetail.jsx";
 import { CartProvider } from "./store/cart-context.jsx";
 
-
 const routeDefinitions = createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
     <Route index element={<Home />} loader={productsLoader} />
     <Route path="/home" element={<Home />} loader={productsLoader} />
     <Route path="/about" element={<About />} />
     <Route path="/contact" element={<Contact />} action={contactAction} />
-    <Route path="/login" element={<Login />} />
+    <Route path="/login" element={<Login />} action={loginAction} />
     <Route path="/cart" element={<Cart />} />
     <Route path="/products/:productId" element={<ProductDetail />} />
   </Route>
@@ -37,7 +36,7 @@ const appRouter = createBrowserRouter(routeDefinitions);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-     <CartProvider>
+    <CartProvider>
       <RouterProvider router={appRouter} />
     </CartProvider>
     <ToastContainer

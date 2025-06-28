@@ -5,7 +5,8 @@ import {
   faShoppingCart, 
   faMinus,
   faPlus,
-  faTrash
+  faTrash,
+  faArrowLeft
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
@@ -51,7 +52,6 @@ export default function CartTable() {
           <p className="text-slate-500 dark:text-slate-400">
             Add some products to get started
           </p>
-          {/* Modern Back to Products Button */}
           <Link
             to="/products"
             className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 group"
@@ -68,7 +68,7 @@ export default function CartTable() {
   }
 
   return (
-    <div className="min-h-80 max-w-5xl mx-auto my-8 w-full font-primary">
+    <div className="min-h-80 max-w-5xl mx-auto my-8 w-full font-primary px-4 sm:px-0">
       {/* Clean, professional container */}
       <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
         
@@ -79,8 +79,8 @@ export default function CartTable() {
           </h2>
         </div>
 
-        {/* Cart table */}
-        <div className="overflow-x-auto">
+        {/* Desktop Table (hidden on mobile) */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="bg-slate-50 dark:bg-slate-900 text-sm font-medium text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
@@ -195,7 +195,95 @@ export default function CartTable() {
           </table>
         </div>
 
-        {/* Clean subtotal section */}
+        {/* Mobile Cards (shown on mobile) */}
+        <div className="md:hidden divide-y divide-slate-200 dark:divide-slate-700">
+          {cart.map((item) => (
+            <div
+              key={item.productId}
+              className={`p-4 ${animatingItems.has(item.productId) ? 'bg-blue-50 dark:bg-blue-900/20' : ''}`}
+            >
+              <div className="flex items-start space-x-4">
+                <Link
+                  to={`/products/${item.productId}`}
+                  state={{ product: item }}
+                  className="flex-shrink-0"
+                >
+                  <img
+                    src={item.imageUrl}
+                    alt={item.name}
+                    className="w-20 h-20 rounded-lg object-cover shadow-sm"
+                  />
+                </Link>
+                
+                <div className="flex-1">
+                  <Link
+                    to={`/products/${item.productId}`}
+                    state={{ product: item }}
+                    className="group"
+                  >
+                    <h3 className="font-medium text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                      {item.name}
+                    </h3>
+                  </Link>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                    SKU: {item.productId}
+                  </p>
+                  
+                  <div className="mt-2 flex items-center justify-between">
+                    <span className="font-medium text-slate-800 dark:text-slate-200">
+                      ${item.price.toFixed(2)}
+                    </span>
+                    <button
+                      onClick={() => handleRemoveItem(item.productId)}
+                      className="text-red-500 hover:text-red-600"
+                    >
+                      <FontAwesomeIcon icon={faTrash} className="text-sm" />
+                    </button>
+                  </div>
+                  
+                  <div className="mt-3 flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => updateCartQuantity(item.productId, Math.max(1, item.quantity - 1))}
+                        className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-600 flex items-center justify-center"
+                        disabled={item.quantity <= 1}
+                      >
+                        <FontAwesomeIcon icon={faMinus} className="text-xs" />
+                      </button>
+                      
+                      <input
+                        type="number"
+                        inputMode="numeric"
+                        value={item.quantity}
+                        onChange={(e) =>
+                          updateCartQuantity(
+                            item.productId,
+                            parseInt(e.target.value, 10) || 1
+                          )
+                        }
+                        className="w-12 h-8 text-center border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500/50 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm"
+                        min="1"
+                      />
+                      
+                      <button
+                        onClick={() => updateCartQuantity(item.productId, item.quantity + 1)}
+                        className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-600 flex items-center justify-center"
+                      >
+                        <FontAwesomeIcon icon={faPlus} className="text-xs" />
+                      </button>
+                    </div>
+                    
+                    <span className="font-semibold text-slate-800 dark:text-slate-200">
+                      ${(item.price * item.quantity).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Subtotal section */}
         <div className="bg-slate-50 dark:bg-slate-900 px-6 py-4 border-t border-slate-200 dark:border-slate-700">
           <div className="flex items-center justify-between">
             <div className="text-slate-600 dark:text-slate-400">

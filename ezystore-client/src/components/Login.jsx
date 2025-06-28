@@ -1,9 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PageTitle from "./PageTitle";
-import { Link } from "react-router-dom";
+import {
+  Form,
+  Link,
+  useActionData,
+  useFormAction,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 import { FaUser, FaLock, FaArrowRight } from "react-icons/fa";
+import apiClient from "../api/apiClient";
+import { toast } from "react-toastify";
 
 export default function Login() {
+  const actionData = useActionData();
+  const navigation = useNavigate();
+  const isSubmitting = navigation.state == "submitting";
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    if (actionData?.success) {
+      toast.success("Login successful!", {
+        position: "top-right",
+        autoClose: 3000,
+        theme: isDark ? "dark" : "light",
+      });
+      navigate("/home");
+    } else if (actionData?.errors?.message) {
+      toast.error(actionData.errors.message, {
+        position: "top-right",
+        autoClose: 3000,
+        theme: isDark ? "dark" : "light",
+      });
+    }
+  }, [actionData, navigate]);
+
   const labelStyle =
     "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
   const inputWrapperStyle =
@@ -18,7 +51,7 @@ export default function Login() {
         <PageTitle title="Welcome back" subtitle="Login to your account" />
 
         {/* Form */}
-        <form className="space-y-6 mt-10">
+        <Form method="POST" className="space-y-6 mt-10">
           {/* Username Field */}
           <div>
             <label htmlFor="username" className={labelStyle}>
@@ -31,6 +64,7 @@ export default function Login() {
                 type="text"
                 name="username"
                 placeholder="username@example.com"
+                autoComplete="username"
                 required
                 className={textFieldStyle}
               />
@@ -57,8 +91,9 @@ export default function Login() {
                 type="password"
                 name="password"
                 placeholder="••••••••"
+                autoComplete="current-password"
                 required
-                minLength={8}
+                minLength={4}
                 maxLength={20}
                 className={textFieldStyle}
               />
@@ -79,13 +114,14 @@ export default function Login() {
 
             <button
               type="submit"
+              disabled={isSubmitting}
               className="group flex items-center gap-2 px-6 py-3 text-white text-sm font-medium rounded-lg bg-primary hover:bg-primary/90 dark:bg-gradient-to-r dark:from-light dark:to-primary dark:hover:from-primary dark:hover:to-light transition-all"
             >
-              Sign in
+              {isSubmitting ? "Authenticating..." : "Login"}
               <FaArrowRight className="transition-transform group-hover:translate-x-1" />
             </button>
           </div>
-        </form>
+        </Form>
 
         {/* Register Link */}
         <p className="text-center mt-10 text-sm text-gray-500 dark:text-gray-400">
@@ -100,4 +136,27 @@ export default function Login() {
       </div>
     </div>
   );
+}
+
+export async function loginAction({ request }) {
+  const data = await request.formData();
+
+  const loginData = {
+    username: data.get("username"),
+    password: data.get("password"),
+  };
+
+  try {
+    const response = await apiClient.post("/auth/login", loginData);
+    const { message, user, jwtToken } = response.data;
+    return { success: true, message, user, jwtToken };
+  } catch (error) {
+    return {
+      success: false,
+      errors: {
+        message:
+          error.response?.data?.message || "Invalid username or password",
+      },
+    };
+  }
 }

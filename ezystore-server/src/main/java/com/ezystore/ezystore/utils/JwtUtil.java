@@ -1,40 +1,40 @@
 package com.ezystore.ezystore.utils;
 
-import com.ezystore.ezystore.constants.ApplicationConstants;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.env.Environment;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.util.Date;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtUtil {
 
-    private final Environment environment;
-    private Key secretKey;
+    @Value("${jwt.secret}")
+    private String secret;
 
-    private static final long EXPIRATION_TIME_MILLIS = 36000000L;
+    @Value("${jwt.expiration-millis}")
+    private long expirationMillis;
+
+    private SecretKey secretKey;
 
     @PostConstruct
     private void initSecretKey() {
-        String secret = environment.getProperty(
-                ApplicationConstants.JWT_SECRET_KEY,
-                ApplicationConstants.JWT_SECRET_DEFAULT_VALUE
-        );
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
     public String generateJwtToken(Authentication authentication) {
         var user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
         Date now = new Date();
-        Date expiry = new Date(now.getTime() + EXPIRATION_TIME_MILLIS);
+        Date expiry = new Date(now.getTime() + expirationMillis);
 
         return Jwts.builder()
                 .issuer("Ezy.com")
@@ -46,4 +46,3 @@ public class JwtUtil {
                 .compact();
     }
 }
-

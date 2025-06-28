@@ -207,10 +207,10 @@ export default function Contact() {
                     required
                   />
                   {actionData?.errors?.email && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {actionData.errors.email}
-                  </p>
-                )}
+                    <p className="text-red-500 text-sm mt-1">
+                      {actionData.errors.email}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -236,10 +236,10 @@ export default function Contact() {
                     required
                   />
                   {actionData?.errors?.mobileNumber && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {actionData.errors.mobileNumber}
-                  </p>
-                )}
+                    <p className="text-red-500 text-sm mt-1">
+                      {actionData.errors.mobileNumber}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -279,10 +279,14 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full flex justify-center items-center gap-3 px-6 py-3.5 text-white text-sm font-medium rounded-lg bg-primary dark:bg-gradient-to-r dark:from-light dark:to-primaryshadow-md hover:shadow-lg transition-all duration-300disabled:opacity-70 disabled:cursor-not-allowedhover:scale-[1.02] active:scale-[0.98]"
+                className="w-full flex justify-center items-center gap-3 px-6 py-3.5 text-white text-sm font-medium rounded-lg bg-primary dark:bg-gradient-to-r dark:from-light dark:to-primary shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98] group"
               >
-                <FaPaperPlane className="h-4 w-4" />
+                {/* Paper plane icon with hover animation */}
+                <FaPaperPlane className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-1 group-hover:rotate-12" />
+
                 {isSubmitting ? "Sending..." : "Send Message"}
+
+                {/* Spinner when submitting */}
                 {isSubmitting && (
                   <svg
                     className="animate-spin -mr-1 ml-2 h-4 w-4 text-white"

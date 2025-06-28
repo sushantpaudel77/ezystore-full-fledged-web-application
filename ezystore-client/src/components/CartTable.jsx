@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useCart } from "../store/cart-context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
-  faTimes, 
   faShoppingCart, 
   faMinus,
   faPlus,

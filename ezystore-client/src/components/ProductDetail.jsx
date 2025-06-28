@@ -3,10 +3,49 @@ import {
   faArrowLeft,
   faShoppingCart,
   faShoppingBasket,
+  faPlus,
+  faMinus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useRef, useEffect } from "react";
 import { useCart } from "../store/cart-context";
+
+// Separate QuantityControl component
+const QuantityControl = ({ quantity, setQuantity }) => {
+  const handleIncrement = () => setQuantity((prev) => prev + 1);
+  const handleDecrement = () => setQuantity((prev) => Math.max(1, prev - 1));
+  const handleChange = (e) => {
+    const value = parseInt(e.target.value);
+    setQuantity(isNaN(value) ? 1 : Math.max(1, value));
+  };
+
+  return (
+    <div className="flex items-center border-2 border-slate-200 dark:border-slate-600 rounded-xl hover:border-indigo-300 dark:hover:border-indigo-500 transition-colors duration-300">
+      <button
+        onClick={handleDecrement}
+        disabled={quantity <= 1}
+        className="w-10 h-12 flex items-center justify-center text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+      >
+        <FontAwesomeIcon icon={faMinus} className="text-sm" />
+      </button>
+      
+      <input
+        type="number"
+        min="1"
+        value={quantity}
+        onChange={handleChange}
+        className="w-16 px-0 py-3 text-center bg-transparent text-slate-900 dark:text-slate-100 font-bold text-lg focus:outline-none focus:ring-0"
+      />
+      
+      <button
+        onClick={handleIncrement}
+        className="w-10 h-12 flex items-center justify-center text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200"
+      >
+        <FontAwesomeIcon icon={faPlus} className="text-sm" />
+      </button>
+    </div>
+  );
+};
 
 export default function ProductDetail() {
   const location = useLocation();
@@ -19,14 +58,9 @@ export default function ProductDetail() {
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
-    if (quantity < 1) {
-      setQuantity(1);
-      return;
-    }
-    addToCart({ ...product }, quantity); // Create a new object to avoid reference issues
+    addToCart({ ...product }, quantity);
   };
 
-  // Detect dark mode from document element
   const [isDark, setIsDark] = useState(false);
   useEffect(() => {
     setIsDark(document.documentElement.classList.contains("dark"));
@@ -48,7 +82,6 @@ export default function ProductDetail() {
 
   const handleViewCart = () => navigate("/cart");
 
-  // Replace the style jsx with regular style tag
   const styles = `
     @keyframes jiggleLeft {
       0%, 100% {
@@ -121,10 +154,7 @@ export default function ProductDetail() {
                 to="/home"
                 className="inline-flex items-center w-fit px-6 py-3 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-all duration-500 group relative overflow-hidden border-2 border-transparent hover:border-indigo-200 dark:hover:border-indigo-700 shadow-lg hover:shadow-xl"
               >
-                {/* Animated gradient background */}
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out"></div>
-
-                {/* Enhanced arrow icon with smoother animation */}
                 <FontAwesomeIcon
                   icon={faArrowLeft}
                   className="mr-3 text-xl transition-all duration-500 ease-out group-hover:-translate-x-1 group-hover:scale-110"
@@ -132,12 +162,9 @@ export default function ProductDetail() {
                     animation: "jiggleLeft 3s ease-in-out infinite",
                   }}
                 />
-
                 <span className="relative z-10 group-hover:translate-x-2 transition-transform duration-500 ease-out">
                   Back To All Products
                 </span>
-
-                {/* Continuous animated underline - smoother */}
                 <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 group-hover:w-full transition-all duration-700 ease-out"></div>
               </Link>
 
@@ -168,45 +195,7 @@ export default function ProductDetail() {
                   >
                     Quantity:
                   </label>
-                  <div className="relative group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-110"></div>
-
-                    <input
-                      type="number"
-                      id="quantity"
-                      min="1"
-                      value={quantity}
-                      onChange={(e) => {
-                        const value = parseInt(e.target.value);
-                        setQuantity(isNaN(value) ? 1 : Math.max(1, value));
-                      }}
-                      className="quantity-input relative z-10 w-24 px-4 py-3 border-2 border-slate-200 dark:border-slate-600 rounded-xl 
-                        focus:ring-4 focus:ring-indigo-500/30 focus:border-indigo-500 
-                        dark:focus:ring-indigo-400/30 dark:focus:border-indigo-400 
-                        bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 
-                        font-bold text-center text-lg transition-all duration-300
-                        hover:border-indigo-300 dark:hover:border-indigo-500
-                        hover:shadow-lg hover:shadow-indigo-500/20
-                        hover:scale-105 active:scale-95"
-                    />
-
-                    <div className="absolute right-1 top-1/2 transform -translate-y-1/2 flex flex-col">
-                      <button
-                        onClick={() => setQuantity((prev) => prev + 1)}
-                        className="w-6 h-4 flex items-center justify-center text-xs text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200"
-                      >
-                        ▲
-                      </button>
-                      <button
-                        onClick={() =>
-                          setQuantity((prev) => Math.max(1, prev - 1))
-                        }
-                        className="w-6 h-4 flex items-center justify-center text-xs text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200"
-                      >
-                        ▼
-                      </button>
-                    </div>
-                  </div>
+                  <QuantityControl quantity={quantity} setQuantity={setQuantity} />
                 </div>
 
                 <div className="space-y-3">

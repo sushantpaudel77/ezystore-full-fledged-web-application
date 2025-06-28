@@ -1,13 +1,16 @@
 import React, { useMemo } from "react";
 import PageTitle from "./PageTitle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import emptyCartImage from "../assets/util/emptycart.png";
 import { FaArrowLeft } from "react-icons/fa";
 import { useCart } from "../store/cart-context";
 import CartTable from "./CartTable";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCreditCard, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function Cart() {
   const { cart } = useCart();
+  const navigate = useNavigate();
 
   const isCartEmpty = useMemo(() => cart.length === 0, [cart.length]);
 
@@ -20,29 +23,32 @@ export default function Cart() {
           <>
             <CartTable />
             <div className="flex justify-between mt-8 space-x-4">
-              {/* Back to Products Button */}
+              {/* Back to Products Button with signature gradient */}
               <Link
                 to="/"
-                className="relative z-0 py-2 px-6 rounded-lg text-white text-xl font-semibold flex justify-center items-center 
-      bg-[linear-gradient(to_right,var(--color-primary),var(--color-dark))] 
-      dark:bg-[linear-gradient(to_right,var(--color-light),var(--color-primary))] 
-      hover:bg-[linear-gradient(to_right,var(--color-dark),var(--color-primary))] 
-      dark:hover:bg-[linear-gradient(to_right,var(--color-primary),var(--color-light))] 
-      transition-all duration-500 ease-in-out hover:scale-[1.02] active:scale-[0.98] shadow-md"
+                className="inline-flex items-center px-4 py-2 text-white font-medium rounded-lg transition-all duration-500 ease-in-out hover:scale-[1.02] active:scale-[0.98] shadow-md
+                  bg-[linear-gradient(to_right,var(--color-primary),var(--color-dark))]
+                  dark:bg-[linear-gradient(to_right,var(--color-light),var(--color-primary))]
+                  hover:bg-[linear-gradient(to_right,var(--color-dark),var(--color-primary))]
+                  dark:hover:bg-[linear-gradient(to_right,var(--color-primary),var(--color-light))]"
               >
+                <FontAwesomeIcon
+                  icon={faArrowLeft}
+                  className="mr-2 text-xs"
+                />
                 Back to Products
               </Link>
 
-              {/* Proceed to Checkout Button */}
+              {/* Proceed to Checkout Button (unchanged) */}
               <button
-                className="relative z-0 py-2 px-6 rounded-lg text-white text-xl font-semibold flex justify-center items-center 
-      bg-[linear-gradient(to_right,var(--color-primary),var(--color-dark))] 
-      dark:bg-[linear-gradient(to_right,var(--color-light),var(--color-primary))] 
-      hover:bg-[linear-gradient(to_right,var(--color-dark),var(--color-primary))] 
-      dark:hover:bg-[linear-gradient(to_right,var(--color-primary),var(--color-light))] 
-      transition-all duration-500 ease-in-out hover:scale-[1.02] active:scale-[0.98] shadow-md"
+                onClick={() => navigate("/checkout")}
+                className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors duration-200 text-sm"
               >
                 Proceed to Checkout
+                <FontAwesomeIcon
+                  icon={faCreditCard}
+                  className="ml-2 text-xs"
+                />
               </button>
             </div>
           </>
@@ -54,15 +60,14 @@ export default function Cart() {
               className="max-w-[280px] mb-6 dark:bg-light rounded-md"
             />
             <p className="max-w-[576px] text-base text-gray-600 dark:text-lighter mb-6">
-              Oops... Your cart is currently empty. Looks like you haven’t added
+              Oops... Your cart is currently empty. Looks like you haven't added
               anything yet.
             </p>
 
             {/* CTA Button */}
             <Link
               to="/home"
-              onClick={handleClick}
-              className="flex items-center gap-2 px-6 py-3.5 text-white/90 text-lg font-semibold rounded-lg bg-primary  dark:bg-gradient-to-r dark:from-light dark:to-primary shadow-md hover:shadow-lg transition-all duration-300  hover:scale-[1.02] active:scale-[0.98]  disabled:opacity-70 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 px-6 py-3.5 text-white/90 text-lg font-semibold rounded-lg bg-primary dark:bg-gradient-to-r dark:from-light dark:to-primary shadow-md hover:shadow-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
             >
               <FaArrowLeft /> Back to Products
             </Link>

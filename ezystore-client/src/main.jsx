@@ -37,7 +37,7 @@ const appRouter = createBrowserRouter(routeDefinitions);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <CartProvider>
+     <CartProvider>
       <RouterProvider router={appRouter} />
     </CartProvider>
     <ToastContainer

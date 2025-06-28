@@ -52,6 +52,17 @@ export default function CartTable() {
           <p className="text-slate-500 dark:text-slate-400">
             Add some products to get started
           </p>
+          {/* Modern Back to Products Button */}
+          <Link
+            to="/products"
+            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 group"
+          >
+            <FontAwesomeIcon 
+              icon={faArrowLeft} 
+              className="mr-2 text-sm group-hover:-translate-x-1 transition-transform duration-200" 
+            />
+            Back to Products
+          </Link>
         </div>
       </div>
     );
@@ -117,10 +128,13 @@ export default function CartTable() {
                     <div className="flex items-center justify-center space-x-2">
                       <button
                         onClick={() => updateCartQuantity(item.productId, Math.max(1, item.quantity - 1))}
-                        className="w-8 h-8 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-600 flex items-center justify-center transition-colors duration-200"
+                        className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-600 flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 group"
                         disabled={item.quantity <= 1}
                       >
-                        <FontAwesomeIcon icon={faMinus} className="text-xs" />
+                        <FontAwesomeIcon 
+                          icon={faMinus} 
+                          className="text-xs group-hover:scale-110 transition-transform duration-200" 
+                        />
                       </button>
                       
                       <input
@@ -133,15 +147,18 @@ export default function CartTable() {
                             parseInt(e.target.value, 10) || 1
                           )
                         }
-                        className="w-16 h-8 text-center border border-slate-300 dark:border-slate-600 rounded-md focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 dark:focus:ring-blue-400/50 dark:focus:border-blue-400 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm transition-all duration-200"
+                        className="w-16 h-8 text-center border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 dark:focus:ring-blue-400/50 dark:focus:border-blue-400 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm transition-all duration-200"
                         min="1"
                       />
                       
                       <button
                         onClick={() => updateCartQuantity(item.productId, item.quantity + 1)}
-                        className="w-8 h-8 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-600 flex items-center justify-center transition-colors duration-200"
+                        className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-600 flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 group"
                       >
-                        <FontAwesomeIcon icon={faPlus} className="text-xs" />
+                        <FontAwesomeIcon 
+                          icon={faPlus} 
+                          className="text-xs group-hover:scale-110 transition-transform duration-200" 
+                        />
                       </button>
                     </div>
                   </td>
@@ -165,9 +182,12 @@ export default function CartTable() {
                     <button
                       aria-label="Remove item"
                       onClick={() => handleRemoveItem(item.productId)}
-                      className="w-8 h-8 rounded-md text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center justify-center transition-colors duration-200"
+                      className="w-8 h-8 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 group"
                     >
-                      <FontAwesomeIcon icon={faTrash} className="text-sm" />
+                      <FontAwesomeIcon 
+                        icon={faTrash} 
+                        className="text-sm group-hover:scale-110 group-hover:rotate-12 transition-all duration-200" 
+                      />
                     </button>
                   </td>
                 </tr>

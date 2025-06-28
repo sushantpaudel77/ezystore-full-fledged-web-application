@@ -5,14 +5,14 @@ export const CartContext = createContext();
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState(() => {
-    try {
-      const storedCart = localStorage.getItem("cart");
-      return storedCart ? JSON.parse(storedCart) : [];
-    } catch (error) {
-      console.log("Failed to parse cart from localStorage: ", error);
-      return [];
-    }
+  // const [cart, setCart] = useState(() => {
+  //   try {
+  //     const storedCart = localStorage.getItem("cart");
+  //     return storedCart ? JSON.parse(storedCart) : [];
+  //   } catch (error) {
+  //     console.log("Failed to parse cart from localStorage: ", error);
+  //     return [];
+  //   }
   });
 
   useEffect(() => {
@@ -23,29 +23,29 @@ export const CartProvider = ({ children }) => {
     }
   }, [cart]);
 
-  const addToCart = (product, quantity) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find(
-        (item) => item.productId === product.productId
-      );
+  // const addToCart = (product, quantity) => {
+  //   setCart((prevCart) => {
+  //     const existingItem = prevCart.find(
+  //       (item) => item.productId === product.productId
+  //     );
 
-      if (existingItem) {
-        return prevCart.map((item) =>
-          item.productId === product.productId
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      }
+  //     if (existingItem) {
+  //       return prevCart.map((item) =>
+  //         item.productId === product.productId
+  //           ? { ...item, quantity: item.quantity + quantity }
+  //           : item
+  //       );
+  //     }
 
-      return [...prevCart, { ...product, quantity }];
-    });
-  };
+  //     return [...prevCart, { ...product, quantity }];
+  //   });
+  // };
 
-  const removeFromCart = (productId) => {
-    setCart((prevCart) =>
-      prevCart.filter((item) => item.productId !== productId)
-    );
-  };
+  // const removeFromCart = (productId) => {
+  //   setCart((prevCart) =>
+  //     prevCart.filter((item) => item.productId !== productId)
+  //   );
+  // };
 
   const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
 

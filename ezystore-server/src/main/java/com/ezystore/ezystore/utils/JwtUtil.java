@@ -37,7 +37,7 @@ public class JwtUtil {
         Date expiry = new Date(now.getTime() + EXPIRATION_TIME_MILLIS);
 
         return Jwts.builder()
-                .issuer("")
+                .issuer("Ezy.com")
                 .subject(user.getUsername())
                 .claim("username", user.getUsername())
                 .issuedAt(now)

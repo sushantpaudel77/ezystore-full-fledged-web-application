@@ -4,24 +4,27 @@ import {
   Form,
   Link,
   useActionData,
-  useFormAction,
   useNavigate,
   useNavigation,
 } from "react-router-dom";
 import { FaUser, FaLock, FaArrowRight } from "react-icons/fa";
 import apiClient from "../api/apiClient";
 import { toast } from "react-toastify";
+import { useAuth } from "../store/auth-context";
 
 export default function Login() {
   const actionData = useActionData();
-  const navigation = useNavigate();
-  const isSubmitting = navigation.state == "submitting";
+  const navigation = useNavigation();
   const navigate = useNavigate();
+  const isSubmitting = navigation.state === "submitting";
+
+  const { loginSuccess } = useAuth();
 
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
 
     if (actionData?.success) {
+      loginSuccess(actionData.jwtToken, actionData.user);
       toast.success("Login successful!", {
         position: "top-right",
         autoClose: 3000,

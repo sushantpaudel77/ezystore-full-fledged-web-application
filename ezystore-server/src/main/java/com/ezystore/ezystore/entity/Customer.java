@@ -9,7 +9,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Customer {
+@Table(name = "customers")
+public class Customer extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")

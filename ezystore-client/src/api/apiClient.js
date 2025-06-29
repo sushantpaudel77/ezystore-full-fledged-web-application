@@ -1,3 +1,4 @@
+import { config } from "@fortawesome/fontawesome-svg-core";
 import axios from "axios";
 
 const apiClient = axios.create({
@@ -7,5 +8,16 @@ const apiClient = axios.create({
   },
   timeout: 10000,
 });
+
+apiClient.interceptors.request.use(
+  async (config) => {
+    const jwtToken = localStorage.getItem("jwtToken");
+    if (jwtToken) {
+      config.headers.Authorization = `Bearer ${jwtToken}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 export default apiClient;

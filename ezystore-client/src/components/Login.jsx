@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react"; // Added useState
 import PageTitle from "./PageTitle";
 import {
   Form,
@@ -7,7 +7,7 @@ import {
   useNavigate,
   useNavigation,
 } from "react-router-dom";
-import { FaUser, FaLock, FaArrowRight } from "react-icons/fa";
+import { FaUser, FaLock, FaArrowRight, FaEye, FaEyeSlash } from "react-icons/fa"; // Added FaEye and FaEyeSlash
 import apiClient from "../api/apiClient";
 import { toast } from "react-toastify";
 import { useAuth } from "../store/auth-context";
@@ -17,6 +17,7 @@ export default function Login() {
   const navigation = useNavigation();
   const navigate = useNavigate();
   const isSubmitting = navigation.state === "submitting";
+  const [showPassword, setShowPassword] = useState(false); // State for show password toggle
 
   const { loginSuccess } = useAuth();
 
@@ -94,7 +95,7 @@ export default function Login() {
               <FaLock className={iconStyle} />
               <input
                 id="password"
-                type="password"
+                type={showPassword ? "text" : "password"} // Toggle between text and password
                 name="password"
                 placeholder="••••••••"
                 autoComplete="current-password"
@@ -103,6 +104,14 @@ export default function Login() {
                 maxLength={20}
                 className={textFieldStyle}
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 transition-colors"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
           </div>
 

@@ -20,6 +20,16 @@ import "react-toastify/dist/ReactToastify.css";
 import ProductDetail from "./components/ProductDetail.jsx";
 import { CartProvider } from "./store/cart-context.jsx";
 import { AuthProvider } from "./store/auth-context.jsx";
+import CheckoutForm from "./components/CheckoutForm.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import Profile, {
+  profileAction,
+  profileLoader,
+} from "./components/Profile.jsx";
+import Orders from "./components/Orders.jsx";
+import AdminOrders from "./components/admin/AdminOrders.jsx";
+import { Messages } from "./components/admin/Messages.jsx";
+import Register, { registerAction } from "./components/Register.jsx";
 
 const routeDefinitions = createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
@@ -28,8 +38,21 @@ const routeDefinitions = createRoutesFromElements(
     <Route path="/about" element={<About />} />
     <Route path="/contact" element={<Contact />} action={contactAction} />
     <Route path="/login" element={<Login />} action={loginAction} />
+    <Route path="/register" element={<Register />} action={registerAction} />
     <Route path="/cart" element={<Cart />} />
     <Route path="/products/:productId" element={<ProductDetail />} />
+    <Route element={<ProtectedRoute />}>
+      <Route path="/checkout/" element={<CheckoutForm />} />
+      <Route
+        path="/profile/"
+        element={<Profile />}
+        loader={profileLoader}
+        action={profileAction}
+      />
+      <Route path="/orders/" element={<Orders />} />
+      <Route path="/admin/orders" element={<AdminOrders />} />
+      <Route path="/admin/messages" element={<Messages />} />
+    </Route>
   </Route>
 );
 

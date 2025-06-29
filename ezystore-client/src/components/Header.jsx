@@ -285,9 +285,16 @@ export default function Header() {
                         className="text-white text-xs"
                       />
                     </div>
-                    <span className="max-w-24 truncate">
-                      {user?.name || "User"}
+                    <span className="font-semibold truncate max-w-[8rem] inline-block">
+                      {user?.name
+                        ? `Hello, ${
+                            user.name.split(" ")[0].length > 10
+                              ? user.name.split(" ")[0].slice(0, 10) + "..."
+                              : user.name.split(" ")[0]
+                          }`
+                        : "Hello, User"}
                     </span>
+
                     {isAdmin && (
                       <span className="text-xs bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 px-2 py-0.5 rounded-full">
                         Admin

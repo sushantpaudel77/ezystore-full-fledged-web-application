@@ -3,20 +3,15 @@ import { useAuth } from '../store/auth-context';
 
 export const useUserRole = () => {
   const { user, isAuthenticated } = useAuth();
-  
-  // 🔧 TESTING FLAG - Set this to true to test admin functionality
-  const TESTING_ADMIN_MODE = false; // Change this to true to test admin features
-  
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated && user) {
-      // Check if user has admin role OR if testing mode is enabled
-      const userIsAdmin = user.role === 'admin' || user.isAdmin === true;
-      setIsAdmin(userIsAdmin || TESTING_ADMIN_MODE);
+      // Check if user has admin role
+      // This could be based on user.role, user.isAdmin, or any other property
+      setIsAdmin(user.role === 'admin' || user.isAdmin === true);
     } else {
-      // If not authenticated but testing mode is on, still show admin features
-      setIsAdmin(TESTING_ADMIN_MODE);
+      setIsAdmin(false);
     }
   }, [user, isAuthenticated]);
 
@@ -28,7 +23,6 @@ export const useUserRole = () => {
   return {
     isAdmin,
     setAdminStatus,
-    userRole: isAdmin ? 'admin' : 'user',
-    isTestingMode: TESTING_ADMIN_MODE // Expose testing flag if needed
+    userRole: isAdmin ? 'admin' : 'user'
   };
 };

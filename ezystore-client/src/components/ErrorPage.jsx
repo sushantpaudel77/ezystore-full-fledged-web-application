@@ -137,7 +137,7 @@ export default function ErrorPage() {
 
       <Footer />
 
-      <style jsx>{`
+      <style>{`
         @keyframes fade-in-up {
           from {
             opacity: 0;

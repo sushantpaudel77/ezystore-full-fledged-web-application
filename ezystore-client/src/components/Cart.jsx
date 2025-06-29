@@ -32,24 +32,18 @@ export default function Cart() {
                   hover:bg-[linear-gradient(to_right,var(--color-dark),var(--color-primary))]
                   dark:hover:bg-[linear-gradient(to_right,var(--color-primary),var(--color-light))]"
               >
-                <FontAwesomeIcon
-                  icon={faArrowLeft}
-                  className="mr-2 text-xs"
-                />
+                <FontAwesomeIcon icon={faArrowLeft} className="mr-2 text-xs" />
                 Back to Products
               </Link>
 
               {/* Proceed to Checkout Button (unchanged) */}
-              <button
-                onClick={() => navigate("/checkout")}
+              <Link
+                to="/checkout"
                 className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors duration-200 text-sm"
               >
                 Proceed to Checkout
-                <FontAwesomeIcon
-                  icon={faCreditCard}
-                  className="ml-2 text-xs"
-                />
-              </button>
+                <FontAwesomeIcon icon={faCreditCard} className="ml-2 text-xs" />
+              </Link>
             </div>
           </>
         ) : (

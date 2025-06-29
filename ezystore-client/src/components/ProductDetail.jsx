@@ -111,7 +111,7 @@ export default function ProductDetail() {
     }
 
     .quantity-input:focus {
-      animation: pulseGlow 2s ease-in-out infinite;
+      animation: pulseGlow 2s ease-in-out infanite;
     }
   `;
 

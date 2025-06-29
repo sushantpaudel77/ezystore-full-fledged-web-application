@@ -20,6 +20,8 @@ export default function Login() {
 
   const { loginSuccess } = useAuth();
 
+  const from = sessionStorage.getItem("redirectPath") || "/home";
+
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
 
@@ -30,7 +32,8 @@ export default function Login() {
         autoClose: 3000,
         theme: isDark ? "dark" : "light",
       });
-      navigate("/home");
+      sessionStorage.removeItem("redirectPath");
+      navigate(from);
     } else if (actionData?.errors?.message) {
       toast.error(actionData.errors.message, {
         position: "top-right",

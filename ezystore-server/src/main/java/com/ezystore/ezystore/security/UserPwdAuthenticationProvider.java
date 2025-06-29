@@ -28,7 +28,7 @@ public class UserPwdAuthenticationProvider implements AuthenticationProvider {
         Customer customer = customerRepository.findByEmail(username).orElseThrow(
                 () -> new UsernameNotFoundException("User details not found for the user: " + username)
         );
-        if (passwordEncoder.matches(pwd, customer.getPassword())) {
+        if (passwordEncoder.matches(pwd, customer.getPasswordHash())) {
             return new UsernamePasswordAuthenticationToken(customer, null, Collections.emptyList());
         } else {
             throw new BadCredentialsException("Invalid Password!");

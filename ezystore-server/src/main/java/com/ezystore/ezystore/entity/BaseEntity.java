@@ -5,8 +5,6 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -19,11 +17,10 @@ import java.time.Instant;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class BaseEntity {
+public abstract class BaseEntity {
 
-    @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
-    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
     @CreatedBy
@@ -31,11 +28,10 @@ public class BaseEntity {
     private String createdBy;
 
     @LastModifiedDate
-    @UpdateTimestamp
-    @Column(name = "updated_at", insertable = false)
+    @Column(name = "updated_at")
     private Instant updatedAt;
 
-    @Column(name = "updated_by", length = 20, insertable = false)
     @LastModifiedBy
+    @Column(name = "updated_by", length = 20)
     private String updatedBy;
 }

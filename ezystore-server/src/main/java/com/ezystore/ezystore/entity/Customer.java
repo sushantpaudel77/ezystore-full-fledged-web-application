@@ -1,5 +1,6 @@
 package com.ezystore.ezystore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -43,6 +44,9 @@ public class Customer extends BaseEntity implements UserDetails {
     @Size(max = 500)
     @Column(name = "password_hash", nullable = false, length = 500)
     private String passwordHash;
+
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Address address;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)

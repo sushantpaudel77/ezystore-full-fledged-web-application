@@ -7,7 +7,13 @@ import {
   useNavigate,
   useNavigation,
 } from "react-router-dom";
-import { FaUser, FaLock, FaArrowRight, FaEye, FaEyeSlash } from "react-icons/fa"; // Added FaEye and FaEyeSlash
+import {
+  FaUser,
+  FaLock,
+  FaArrowRight,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa"; // Added FaEye and FaEyeSlash
 import apiClient from "../api/apiClient";
 import { toast } from "react-toastify";
 import { useAuth } from "../store/auth-context";
@@ -34,7 +40,9 @@ export default function Login() {
         theme: isDark ? "dark" : "light",
       });
       sessionStorage.removeItem("redirectPath");
-      navigate(from);
+      setTimeout(() => {
+        navigate(from);
+      }, 100);
     } else if (actionData?.errors?.message) {
       toast.error(actionData.errors.message, {
         position: "top-right",

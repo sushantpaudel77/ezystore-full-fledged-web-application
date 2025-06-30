@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react"; // Added useState
+import React, { useRef, useEffect } from "react";
 import {
   Form,
   Link,
@@ -7,7 +7,7 @@ import {
   useNavigate,
   useSubmit,
 } from "react-router-dom";
-import { FaUser, FaEnvelope, FaPhone, FaLock, FaArrowRight, FaEye, FaEyeSlash } from "react-icons/fa"; // Added FaEye and FaEyeSlash
+import { FaUser, FaEnvelope, FaPhone, FaLock, FaArrowRight } from "react-icons/fa";
 import apiClient from "../api/apiClient";
 import { toast } from "react-toastify";
 import PageTitle from "./PageTitle";
@@ -18,8 +18,6 @@ export default function Register() {
   const navigate = useNavigate();
   const formRef = useRef(null);
   const submit = useSubmit();
-  const [showPassword, setShowPassword] = useState(false); // State for password visibility
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
 
   const isSubmitting = navigation.state === "submitting";
 
@@ -167,7 +165,7 @@ export default function Register() {
                 <FaLock className={iconStyle} />
                 <input
                   id="password"
-                  type={showPassword ? "text" : "password"} // Toggle between text and password
+                  type="password"
                   name="password"
                   placeholder="••••••••"
                   required
@@ -176,14 +174,6 @@ export default function Register() {
                   maxLength={20}
                   className={textFieldStyle}
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 transition-colors"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </button>
               </div>
               {actionData?.errors?.password && (
                 <p className={errorStyle}>{actionData.errors.password}</p>
@@ -199,7 +189,7 @@ export default function Register() {
                 <FaLock className={iconStyle} />
                 <input
                   id="confirmPwd"
-                  type={showConfirmPassword ? "text" : "password"} // Toggle between text and password
+                  type="password"
                   name="confirmPwd"
                   placeholder="••••••••"
                   required
@@ -208,14 +198,6 @@ export default function Register() {
                   maxLength={20}
                   className={textFieldStyle}
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 transition-colors"
-                  aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-                >
-                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                </button>
               </div>
             </div>
           </div>

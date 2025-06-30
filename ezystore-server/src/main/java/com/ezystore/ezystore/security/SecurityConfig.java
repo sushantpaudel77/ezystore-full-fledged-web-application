@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.password.HaveIBeenPwnedRestApiPasswordChecker;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -28,7 +29,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final List<String> publicPathConfig;
+    private final List<String> publicPaths;
     private final JwtTokenValidatorFilter jwtTokenValidatorFilter;
 
     @Bean
@@ -36,17 +37,17 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .cors(corsConfig -> corsConfig.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(requests -> {
-                    publicPathConfig.forEach(path -> requests.requestMatchers(path).permitAll());
+                    publicPaths.forEach(path -> requests.requestMatchers(path).permitAll());
                     requests.anyRequest().authenticated();
                 })
-                .addFilterBefore(jwtTokenValidatorFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtTokenValidatorFilter, BasicAuthenticationFilter.class);
         http.formLogin(Customizer.withDefaults());
         http.httpBasic(Customizer.withDefaults());
         return http.build();
     }
 
     @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
 

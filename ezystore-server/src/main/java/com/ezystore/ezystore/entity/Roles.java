@@ -1,21 +1,23 @@
 package com.ezystore.ezystore.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
-public class Roles extends BaseEntity{
+@Getter
+@Setter
+@Entity
+@Table(name = "roles")
+public class Roles extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
     private Long roleId;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
-
     @Size(max = 50)
     @Column(name = "name", nullable = false, length = 50)
     private String name;
+
 }

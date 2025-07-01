@@ -32,38 +32,50 @@ public class JwtTokenValidatorFilter extends OncePerRequestFilter {
     private final CustomerService customerService;
     private final HandlerExceptionResolver handlerExceptionResolver;
 
-    private final AntPathMatcher pathMatcher = new AntPathMatcher();
+    // Inject this list from config or SecurityConfig
     private final List<String> publicPaths;
 
     private static final String BEARER_PREFIX = "Bearer ";
+    private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
     @Override
     protected void doFilterInternal(
             @Nonnull HttpServletRequest request,
             @Nonnull HttpServletResponse response,
-            @Nonnull FilterChain filterChain) throws ServletException, IOException {
+            @Nonnull FilterChain filterChain
+    ) throws ServletException, IOException {
 
         try {
-            Optional<String> tokenOpt = extractToken(request);
+            if (shouldSkipAuthentication(request)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
 
+            Optional<String> tokenOpt = extractToken(request);
             if (tokenOpt.isEmpty()) {
                 filterChain.doFilter(request, response);
                 return;
             }
 
             String token = tokenOpt.get();
-            Long customerId = jwtUtil.getUserIdFromToken(token);
 
+            if (!jwtUtil.validateToken(token)) {
+                throw new JwtException("Invalid or expired JWT token");
+            }
+
+            Long customerId = jwtUtil.getUserIdFromToken(token);
             if (customerId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 Customer customer = customerService.getCustomerById(customerId);
 
-                UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(
-                                customer,
-                                null,
-                                customer.getAuthorities()
-                        );
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                        customer,
+                        null,
+                        customer.getAuthorities()
+                );
+
+                authenticationToken.setDetails(
+                        new WebAuthenticationDetailsSource().buildDetails(request)
+                );
 
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
@@ -71,7 +83,10 @@ public class JwtTokenValidatorFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
 
         } catch (JwtException ex) {
-            log.warn("Invalid JWT token: {}", ex.getMessage());
+            log.warn("JWT validation failed: {}", ex.getMessage());
+            handlerExceptionResolver.resolveException(request, response, null, ex);
+        } catch (Exception ex) {
+            log.error("Unexpected error during JWT filter processing", ex);
             handlerExceptionResolver.resolveException(request, response, null, ex);
         }
     }
@@ -84,9 +99,13 @@ public class JwtTokenValidatorFilter extends OncePerRequestFilter {
         return Optional.empty();
     }
 
-    @Override
-    protected boolean shouldNotFilter(@Nonnull HttpServletRequest request) {
+    private boolean shouldSkipAuthentication(HttpServletRequest request) {
         String path = request.getRequestURI();
         return publicPaths.stream().anyMatch(publicPath -> pathMatcher.match(publicPath, path));
+    }
+
+    @Override
+    protected boolean shouldNotFilter(@Nonnull HttpServletRequest request) {
+        return shouldSkipAuthentication(request);
     }
 }

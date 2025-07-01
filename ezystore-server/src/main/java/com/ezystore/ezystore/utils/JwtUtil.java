@@ -1,10 +1,10 @@
 package com.ezystore.ezystore.utils;
 
 import com.ezystore.ezystore.entity.Customer;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SecurityException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,7 +47,6 @@ public class JwtUtil {
                 .expiration(expiry)
                 .signWith(getSigningKey(), Jwts.SIG.HS256)
                 .compact();
-
     }
 
     public Long getUserIdFromToken(String token) {
@@ -57,5 +56,24 @@ public class JwtUtil {
                 .parseSignedClaims(token)
                 .getPayload();
         return Long.valueOf(claims.getSubject());
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser()
+                    .verifyWith(getSigningKey())
+                    .build()
+                    .parseSignedClaims(token);
+            return true;
+        } catch (ExpiredJwtException ex) {
+            log.warn("JWT token has expired: {}", ex.getMessage());
+        } catch (SecurityException ex) {
+            log.warn("Invalid JWT signature: {}", ex.getMessage());
+        } catch (JwtException ex) {
+            log.warn("Invalid JWT token: {}", ex.getMessage());
+        } catch (Exception ex) {
+            log.error("Unexpected error during JWT validation: {}", ex.getMessage(), ex);
+        }
+        return false;
     }
 }

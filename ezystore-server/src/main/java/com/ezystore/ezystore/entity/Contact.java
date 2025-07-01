@@ -10,7 +10,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Table(name = "contacts")
-public class Contact extends BaseEntity{
+public class Contact extends BaseEntity {
 
     @Id
     @Column(name = "contact_id", nullable = false)

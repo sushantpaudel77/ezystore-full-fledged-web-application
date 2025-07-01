@@ -9,10 +9,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -43,6 +45,9 @@ public class JwtUtil {
                 .subject(String.valueOf(customer.getCustomerId()))
                 .claim("name", customer.getName())
                 .claim("email", customer.getEmail())
+                .claim("roles", authentication.getAuthorities().stream().map(
+                        GrantedAuthority::getAuthority
+                ).collect(Collectors.joining(",")))
                 .issuedAt(now)
                 .expiration(expiry)
                 .signWith(getSigningKey(), Jwts.SIG.HS256)

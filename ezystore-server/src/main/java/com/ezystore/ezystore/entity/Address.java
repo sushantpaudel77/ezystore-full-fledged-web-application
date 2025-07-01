@@ -2,6 +2,7 @@ package com.ezystore.ezystore.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -28,6 +29,11 @@ public class Address extends BaseEntity implements Serializable {
     @JoinColumn(name = "customer_id", nullable = false, unique = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Customer customer;
+
+    @NotBlank(message = "Mobile number is required")
+    @Pattern(regexp = "^\\+?[1-9][0-9]{7,14}$", message = "Invalid mobile number format")
+    @Column(name = "mobile_number")
+    private String mobileNumber;
 
     @NotBlank
     @Size(max = 150)

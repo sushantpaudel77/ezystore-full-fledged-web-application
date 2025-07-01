@@ -87,6 +87,7 @@ public class AuthController {
         Customer customer = new Customer();
         BeanUtils.copyProperties(registerRequestDto, customer);
         customer.setPasswordHash(passwordEncoder.encode(registerRequestDto.getPassword()));
+        Role
         customerRepository.save(customer);
         return ResponseEntity.
                 status(HttpStatus.CREATED)

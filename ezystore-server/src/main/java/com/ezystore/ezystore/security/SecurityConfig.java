@@ -37,9 +37,8 @@ public class SecurityConfig {
                 .cors(corsConfig -> corsConfig.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(requests -> {
                     publicPaths.forEach(path -> requests.requestMatchers(path).permitAll());
-                    requests.requestMatchers("/api/v1/admin/**").hasAnyAuthority("VIEWORDER");
-                    requests.anyRequest().hasAnyAuthority("USER");
-                    requests.anyRequest().authenticated();
+                    requests.requestMatchers("/api/v1/admin/**").hasRole("ADMIN");
+                    requests.anyRequest().hasAnyRole("USER", "ADMIN");
                 })
                 .addFilterBefore(jwtTokenValidatorFilter, BasicAuthenticationFilter.class);
         http.formLogin(Customizer.withDefaults());
